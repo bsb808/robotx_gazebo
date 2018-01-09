@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>robotx_gazebo</name>
+  <version>0.0.1</version>
+  <description>The robotx_gazebo package</description>
+  <maintainer email="briansbngham@gmail.com">bsb</maintainer>
+  <license>TODO</license>
+  <!-- <url type="website">http://wiki.ros.org/robotx_gazebo</url> -->
+  <author email="briansbingham@gmail.com">Brian Bingham</author> -->
+
+  <depend>gazebo_ros</depend>
+  <depend>gazebo_plugins</depend>
+  <depend>hector_gazebo_plugins</depend>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <export>
+    <!-- This tells gazebo to look in the catkin_package path for resources
+    Particularly important for the models/pondmap.png file for the lake.world-->
+    <gazebo_ros gazebo_model_path="${prefix}:${prefix}/models"/>
+    <gazebo_ros gazebo_media_path="${prefix}"/>
+  </export>
+</package>

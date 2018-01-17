@@ -2,6 +2,8 @@
 
 <launch>
 
+  <env name="ROSCONSOLE_CONFIG_FILE" value="$(find robotx_gazebo)/config/custom_rosconsole.conf"/>
+  
   <!-- For setting debug level to debug -->
   <!--<env name="ROSCONSOLE_CONFIG_FILE" 
        value="$(find kingfisher_gazebo)/config/custom_rosconsole.conf"/>
@@ -9,7 +11,7 @@
   <!-- Command line arguments -->
   <arg name="world" default="sandisland.world" />
   
-  <arg name="name" default="kingfisher" />
+  <arg name="name" default="WAMV" />
   <arg name="imu" default="true" />
   <arg name="gps" default="true" />
   <arg name="p3d" default="true" />
@@ -24,22 +26,23 @@
 
   
   <param name="use_sim_time" value="true" />
+  <!-- Start Gazebo with the world file -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find robotx_gazebo)/worlds/$(arg world)"/>
     <arg name="verbose" value="true"/>
   </include>
-  <!--
-  <arg name="urdf" default="$(find kingfisher_gazebo)/urdf/base_gazebo.xacro"/>
-  <param name="robot_description" command="$(find xacro)/xacro $(arg urdf) imu:=$(arg imu) gps:=$(arg gps) microstrain:=$(arg microstrain) p3d:=$(arg p3d)"/>
-  
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
-  -->
-  <!-- Spawn robot in gazebo -->
-  <!--
-  <node name="spawn_kingfisher_model" pkg="gazebo_ros" type="spawn_model"
+
+  <!-- Load robot model -->
+  <arg name="urdf" default="$(find wamv_description)/urdf/wamv_robotx.xacro"/>
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg urdf)"/>
+
+  <!-- Spawn model in Gazebo -->
+  <node name="spawn_model" pkg="gazebo_ros" type="spawn_model"
 	args="-x $(arg x) -y $(arg y) -z $(arg z) 
 	      -R $(arg R) -P $(arg P) -Y $(arg Y)
-	      -unpause -urdf -param robot_description -model mobile_base"/>
-  -->
+	      -unpause -urdf -param robot_description -model wamv"/>
+
+  <include file="$(find usv_utils)/launch/usv_diffdrive.launch"/>
+    
 
 </launch>

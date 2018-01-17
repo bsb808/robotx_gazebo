@@ -10,6 +10,7 @@
 
   <depend>gazebo_ros</depend>
   <depend>gazebo_plugins</depend>
+  <depend>wamv_description</depend>
   <depend>hector_gazebo_plugins</depend>
 
   <buildtool_depend>catkin</buildtool_depend>

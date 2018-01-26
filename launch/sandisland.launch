@@ -18,19 +18,23 @@
   <arg name="p3d" default="true" />
 
   <arg name="microstrain" default="false" />
+
+  <!-- Initial USV location and attitude-->
   <arg name="x" default="0" />
   <arg name="y" default="0" />
-  <arg name="z" default="6.0" />
+  <arg name="z" default="0" />
   <arg name="P" default="0" />
   <arg name="R" default="0" />
   <arg name="Y" default="0" />
 
-  
+  <param name="paused" value="true"/>
   <param name="use_sim_time" value="true" />
   <!-- Start Gazebo with the world file -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find robotx_gazebo)/worlds/$(arg world)"/>
     <arg name="verbose" value="true"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
   </include>
 
   <!-- Load robot model -->
@@ -41,7 +45,7 @@
   <node name="spawn_model" pkg="gazebo_ros" type="spawn_model"
 	args="-x $(arg x) -y $(arg y) -z $(arg z) 
 	      -R $(arg R) -P $(arg P) -Y $(arg Y)
-	      -unpause -urdf -param robot_description -model wamv"/>
+	      -urdf -param robot_description -model wamv"/>
 
   <include file="$(find usv_utils)/launch/usv_diffdrive.launch"/>
     

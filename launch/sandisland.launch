@@ -22,18 +22,18 @@
   <!-- Initial USV location and attitude-->
   <arg name="x" default="0" />
   <arg name="y" default="0" />
-  <arg name="z" default="0" />
+  <arg name="z" default="1.0" />
   <arg name="P" default="0" />
   <arg name="R" default="0" />
   <arg name="Y" default="0" />
 
-  <param name="paused" value="true"/>
+
   <param name="use_sim_time" value="true" />
   <!-- Start Gazebo with the world file -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find robotx_gazebo)/worlds/$(arg world)"/>
     <arg name="verbose" value="true"/>
-    <arg name="paused" value="false"/>
+    <arg name="paused" value="true"/>
     <arg name="use_sim_time" value="true"/>
   </include>
 

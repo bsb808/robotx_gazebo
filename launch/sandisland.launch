@@ -22,7 +22,7 @@
   <!-- Initial USV location and attitude-->
   <arg name="x" default="0" />
   <arg name="y" default="0" />
-  <arg name="z" default="1.0" />
+  <arg name="z" default="0.1" />
   <arg name="P" default="0" />
   <arg name="R" default="0" />
   <arg name="Y" default="0" />
@@ -33,7 +33,7 @@
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find robotx_gazebo)/worlds/$(arg world)"/>
     <arg name="verbose" value="true"/>
-    <arg name="paused" value="true"/>
+    <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
   </include>
 
@@ -48,6 +48,13 @@
 	      -urdf -param robot_description -model wamv"/>
 
   <include file="$(find usv_utils)/launch/usv_diffdrive.launch"/>
-    
+
+  <!-- Utility for publishing rpy for plotting -->
+  <node pkg="robotx_gazebo" type="quat2rpy.py" name="quat2rpy" output="screen">
+      <remap from="in_topic" to="/gazebo/model_states" />
+      <remap from="out_topic" to="wamv_rpy" />
+      <param name="input_msg_type" value="ModelStates" />      
+      <param name="modelstates_index" value="6" type="int" />
+  </node>
 
 </launch>
